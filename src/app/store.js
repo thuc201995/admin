@@ -1,8 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-
+import { configureStore } from "@reduxjs/toolkit";
+import sidebar from "../features/sidebar/sidebarSlice";
+import { logger } from "redux-logger";
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    sidebar,
   },
+  middleware: [logger],
 });

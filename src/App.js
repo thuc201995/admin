@@ -1,58 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { memo, useState, useLayoutEffect } from "react";
+import Navbar from "./features/navbar/Navbar";
+import { useSelector } from "react-redux";
+import { selectIsOpen } from "./features/sidebar/sidebarSlice";
+import classnames from "classnames";
+import { BrowserRouter as Router } from "react-router-dom";
+import Sidebar from "./features/sidebar/Sidebar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import "./css/all.css";
 
-function App() {
+const App = () => {
+  const isOpen = useSelector(selectIsOpen);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useLayoutEffect(() => {
+    const updateIsMobile = () => {
+      console.log(window.innerWidth);
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+    window.addEventListener("resize", updateIsMobile);
+    return () => window.removeEventListener("resize", updateIsMobile);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <Router>
+        <div
+          className={classnames("sidebar-mini layout-fixed", {
+            "sidebar-collapse": !isOpen && !isMobile,
+            "sidebar-open": isOpen && isMobile,
+          })}
+        >
+          <div className="wrapper">
+            <Navbar />
+            <Sidebar />
+          </div>
+        </div>
+      </Router>
     </div>
   );
-}
+};
 
-export default App;
+export default memo(App);
