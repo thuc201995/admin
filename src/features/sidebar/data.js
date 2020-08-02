@@ -215,7 +215,7 @@ export const menus = [
   },
   {
     id: 23,
-    title: "Top Navigation + Sidebar",
+    title: "Top Navigation sidebar",
     index: 1,
     group: -1,
     parent: 44,

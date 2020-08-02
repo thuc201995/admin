@@ -72,7 +72,7 @@ export const { menusReceived } = menusSlices.actions;
 /*************** isOpen ************************/
 export const toggleSidebar = createAction("toggleSidebar");
 export const setIsOpen = createAction("setIsOpen");
-const isOpen = createReducer(true, {
+const isOpen = createReducer(window.innerWidth > 768, {
   [setIsOpen]: (_, action) => action.payload,
   [toggleSidebar]: (state) => !state,
 });
