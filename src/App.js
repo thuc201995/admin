@@ -1,35 +1,32 @@
-import React, { memo, useRef, useEffect } from "react";
+import React, { memo, useRef, Suspense, lazy } from "react";
 import Navbar from "./features/navbar/Navbar";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectIsOpen,
-  toggleSidebar,
-  setIsOpen,
-} from "./features/sidebar/sidebarSlice";
+import { selectIsOpen, toggleSidebar } from "./features/sidebar/sidebarSlice";
 import classnames from "classnames";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import useMobileDetecter from "./customHooks/useMobileDetecter";
 import Sidebar from "./features/sidebar/Sidebar";
-import useOutsideDetecter from "./customHooks/useOutsideDetecter";
+import routers from "./configRouter";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "./css/all.css";
-
 const App = () => {
   const isOpen = useSelector(selectIsOpen);
   const isMobile = useMobileDetecter();
   const sidebarRef = useRef(null);
-  const isClickOutSide = useOutsideDetecter(sidebarRef);
   const dispatch = useDispatch();
-  const handleClick = () => {
-    if (isClickOutSide && isMobile && isOpen) {
+  const handleClick = (e) => {
+    if (
+      isMobile &&
+      isOpen &&
+      sidebarRef.current &&
+      !sidebarRef.current.contains(e.target)
+    ) {
       dispatch(toggleSidebar());
     }
   };
-  useEffect(() => {
-    if (isMobile) dispatch(setIsOpen(false));
-  }, []);
+
   return (
     <div onClick={handleClick}>
       <Router>
@@ -43,13 +40,25 @@ const App = () => {
           <div className="wrapper">
             <Navbar />
             <Sidebar ref={sidebarRef} />
-            <div className="content-wrapper">
-              <section className="content">
-                <div className="container-fluid">dsfasdf</div>
-              </section>
-              <div id="sidebar-overlay"></div>
-            </div>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                {routers.map((item) => (
+                  <Route {...item} />
+                ))}
+              </Switch>
+            </Suspense>
+            <div id="sidebar-overlay"></div>
           </div>
+          <footer class="main-footer">
+            <strong>
+              Copyright © 2014-2020{" "}
+              <a href="https://adminlte.io">AdminLTE.io</a>.
+            </strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+              <b>Version</b> 3.1.0-pre
+            </div>
+          </footer>
         </div>
       </Router>
     </div>

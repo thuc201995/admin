@@ -32,31 +32,31 @@ const Navbar = () => {
             aria-label="Search"
           />
           <div className="input-group-append">
-            <button className="btn btn-navbar" type="submit">
+            <a className="btn btn-navbar" type="submit">
               <i className="fas fa-search"></i>
-            </button>
+            </a>
           </div>
         </div>
       </form>
 
       <ul className="navbar-nav ml-auto">
         <li className="nav-item dropdown">
-          <button className="btn nav-link">
+          <a className=" nav-link">
             <i className="far fa-comments"></i>
             <span className="badge badge-danger navbar-badge">3</span>
-          </button>
+          </a>
         </li>
 
         <li className="nav-item dropdown">
-          <button className="btn nav-link">
+          <a className=" nav-link">
             <i className="far fa-bell"></i>
             <span className="badge badge-warning navbar-badge">15</span>
-          </button>
+          </a>
         </li>
         <li className="nav-item">
-          <button className="btn nav-link">
+          <a className=" nav-link">
             <i className="fas fa-th-large"></i>
-          </button>
+          </a>
         </li>
       </ul>
     </nav>
