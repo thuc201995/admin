@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-const useOutsideDetecter = (ref) => {
-  const [isClickOutside, setIsClickOutside] = useState(false);
-
+const useOutsideDetecter = (refs, callBack) => {
   useEffect(() => {
     const handlerClickOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setIsClickOutside(true);
-      } else {
-        setIsClickOutside(false);
+      let isClickOutSide = true;
+      if (refs && refs.length > 0) {
+        refs.forEach((ref) => {
+          if (ref.current && ref.current.contains(e.target)) {
+            isClickOutSide = false;
+            return;
+          }
+        });
       }
+      if (isClickOutSide) callBack();
     };
     document.addEventListener("click", handlerClickOutside);
     return () => {
       document.removeEventListener("click", handlerClickOutside);
     };
-  }, [ref.current]);
-  return isClickOutside;
+  });
 };
 
 export default useOutsideDetecter;

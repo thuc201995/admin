@@ -43,19 +43,19 @@ const App = () => {
             <Suspense fallback={<div>Loading...</div>}>
               <Switch>
                 {routers.map((item) => (
-                  <Route {...item} />
+                  <Route {...item} key={item.name} />
                 ))}
               </Switch>
             </Suspense>
             <div id="sidebar-overlay"></div>
           </div>
-          <footer class="main-footer">
+          <footer className="main-footer">
             <strong>
               Copyright © 2014-2020{" "}
               <a href="https://adminlte.io">AdminLTE.io</a>.
             </strong>
             All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
+            <div className="float-right d-none d-sm-inline-block">
               <b>Version</b> 3.1.0-pre
             </div>
           </footer>
