@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const routers = [
   {
-    component: () => <div class="content-wrapper">Home page</div>,
+    component: () => <div className="content-wrapper">Home page</div>,
     exact: true,
     path: "/",
     name: "Home",
@@ -14,7 +14,7 @@ const routers = [
     name: "Dashboard",
   },
   {
-    component: () => <div class="content-wrapper">widget</div>,
+    component: () => <div className="content-wrapper">widget</div>,
     exact: true,
     path: "/widgets",
     name: "Widgets",
