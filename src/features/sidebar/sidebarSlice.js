@@ -28,7 +28,6 @@ export const groupSelector = groupsAdapter.getSelectors((state) => {
 export const { groupReceived } = gruopsSlice.actions;
 /************** group menu *******************/
 
-/************** group menu *******************/
 export const menusSlices = createSlice({
   name: "sidebarMenus",
   initialState: {
@@ -67,7 +66,6 @@ export const menusSlices = createSlice({
 });
 export const selectMenus = (state) => state.sidebar.menus;
 export const { menusReceived } = menusSlices.actions;
-/************** group menu *******************/
 
 /*************** isOpen ************************/
 export const toggleSidebar = createAction("toggleSidebar");

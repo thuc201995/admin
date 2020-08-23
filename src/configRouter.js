@@ -10,7 +10,7 @@ const routers = [
   {
     component: () => <Dashboard />,
     exact: false,
-    path: "/dashboard/:v1",
+    path: "/dashboard/:version",
     name: "Dashboard",
   },
   {
