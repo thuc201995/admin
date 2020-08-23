@@ -1,7 +1,8 @@
 import React from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
-const SidebarAvatar = ({ as: As, className, img, name, ...props }) => {
+import { NavLink } from "react-router-dom";
+const SidebarAvatar = ({ as: As, className, img, name, to, ...props }) => {
   return (
     <As
       className={cn("user-panel mt-3 pb-3 mb-3 d-flex", className)}
@@ -11,9 +12,9 @@ const SidebarAvatar = ({ as: As, className, img, name, ...props }) => {
         <img src={img} className="img-circle elevation-2" alt="User" />
       </div>
       <div className="info">
-        <a href="#" className="d-block">
+        <NavLink to={to} className="d-block">
           {name}
-        </a>
+        </NavLink>
       </div>
     </As>
   );
@@ -26,8 +27,10 @@ SidebarAvatar.propTypes = {
   img: PropTypes.string,
   name: PropTypes.string,
   as: PropTypes.elementType,
+  to: PropTypes.string,
 };
 
 SidebarAvatar.defaultProps = {
   as: "div",
+  to: "/",
 };
