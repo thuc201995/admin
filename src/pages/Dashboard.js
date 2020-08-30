@@ -5,9 +5,7 @@ const Dashboard = () => {
   return (
     <Layout style={{ height: "200vh" }}>
       <Layout.Header title="DashBoard"></Layout.Header>
-      <Layout.Body>
-        <CustomerPopover></CustomerPopover>
-      </Layout.Body>
+      <Layout.Body>This is Body</Layout.Body>
     </Layout>
   );
 };

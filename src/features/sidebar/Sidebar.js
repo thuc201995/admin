@@ -11,23 +11,25 @@ import { menuGroups, menus } from "./data";
 import { NavLink, Link } from "react-router-dom";
 import AdminLTELogo from "../../img/AdminLTELogo.png";
 import Avatar from "../../img/avatar.png";
-const SidebarContainer = (props, ref) => {
+const SidebarContainer = (_, ref) => {
   const dispatch = useDispatch();
-  const groupIds = useSelector((state) => groupSelector.selectIds(state));
-  const groupEntities = useSelector((state) =>
-    groupSelector.selectEntities(state)
+  const groupIds = useSelector((state) => groupSelector.selectIds(state)); // list ids of  menu groups (group menu)
+  const groupEntities = useSelector(
+    (state) => groupSelector.selectEntities(state) // object data by id of menu groups
   );
   const {
-    groupByParentId,
-    entities: menusEntities,
-    groupByGroupId,
+    groupByParentId, // list ids menus group by parent id (menu f1)
+    entities: menusEntities, // object data by id of menus
+    groupByGroupId, // list ids menus group by group id (menu f0)
   } = useSelector(selectMenus);
 
   useEffect(() => {
+    // fake fetching menu data
     dispatch(groupReceived(menuGroups));
     dispatch(menusReceived(menus));
   }, [dispatch]);
 
+  // render group of menus
   const renderGroupItem = ({ title, groupId }) => {
     if (!title) return "";
     return (
@@ -62,6 +64,7 @@ const SidebarContainer = (props, ref) => {
         badgeVariant={data.badgeVariant}
       >
         {childMenuIds &&
+          // render menu f1
           childMenuIds.map((id) =>
             renderMenuItem({
               data: {
@@ -84,18 +87,22 @@ const SidebarContainer = (props, ref) => {
               const { title } = groupEntities[groupId];
               return (
                 <Fragment key={`menu-group-id-${groupId}`}>
+                  {/* render  group of menu */}
                   {renderGroupItem({ title, groupId })}
                   {groupByGroupId &&
                     groupByGroupId[groupId] &&
+                    // render menu f0
                     groupByGroupId[groupId].map((menuId) => {
-                      const menuGroups = groupByParentId[menuId];
-                      if (menuGroups) {
+                      const childMenuIds = groupByParentId[menuId];
+                      if (childMenuIds) {
+                        // has child menu (render menu dropdown with child menu)
                         return renderMenuDropdown({
                           data: menusEntities[menuId],
-                          childMenuIds: menuGroups,
+                          childMenuIds,
                           menusEntities,
                         });
                       }
+                      // no child menu
                       return renderMenuItem({
                         data: menusEntities[menuId],
                       });

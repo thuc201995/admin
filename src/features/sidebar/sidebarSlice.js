@@ -17,6 +17,8 @@ export const gruopsSlice = createSlice({
   name: "sidebarGroups",
   initialState: groupsAdapter.getInitialState(),
   reducers: {
+    // normalize data using adapter
+    // group of menus
     groupReceived: (state, action) => {
       groupsAdapter.setAll(state, action.payload);
     },
@@ -37,12 +39,14 @@ export const menusSlices = createSlice({
     groupByParentId: [],
   },
   reducers: {
+    // normalize data
     menusReceived: (state, action) => {
       const { payload } = action;
       const byId = payload.reduce((result, item) => {
         result = { ...result, [item.id]: item };
         return result;
       }, {});
+      // menu f0
       const groupByGroupId = payload.reduce((result, item) => {
         result = {
           ...result,
@@ -50,6 +54,7 @@ export const menusSlices = createSlice({
         };
         return result;
       }, {});
+      // menu f1
       const groupByParentId = payload.reduce((result, item) => {
         result = {
           ...result,
