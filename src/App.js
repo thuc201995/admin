@@ -12,18 +12,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "./css/all.css";
 const App = () => {
-  const isOpen = useSelector(selectIsOpen);
-  const isMobile = useMobileDetecter();
-  const sidebarRef = useRef(null);
-  const dispatch = useDispatch();
+  const isOpen = useSelector(selectIsOpen); // is sidebar open
+  const isMobile = useMobileDetecter(); // is mobile device
+  const sidebarRef = useRef(null); // create sidebar ref
+  const dispatch = useDispatch(); // create dispatcher
   const handleClick = (e) => {
+    // check and hidden sidebar when click outside in mobile
     if (
-      isMobile &&
-      isOpen &&
-      sidebarRef.current &&
-      !sidebarRef.current.contains(e.target)
+      isMobile && // is mobile device
+      isOpen && // is sidebar open
+      sidebarRef.current && // is sidebar exist
+      !sidebarRef.current.contains(e.target) // check is click outside sidebar
     ) {
-      dispatch(toggleSidebar());
+      dispatch(toggleSidebar()); // dispatch hidden sidebar
     }
   };
 
@@ -51,10 +52,9 @@ const App = () => {
           </div>
           <footer className="main-footer">
             <strong>
-              Copyright © 2014-2020{" "}
-              <a href="https://adminlte.io">AdminLTE.io</a>.
+              Contact
+              <a href="https://adminlte.io"> thuc201995@gmail.com</a>.
             </strong>
-            All rights reserved.
             <div className="float-right d-none d-sm-inline-block">
               <b>Version</b> 3.1.0-pre
             </div>

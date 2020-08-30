@@ -9,8 +9,6 @@ const ids = Object.keys(entities);
 
 const CustomerPopover = () => {
   const [show, setShow] = useState(false);
-  console.log(ids);
-  console.log(entities);
   const renderBody = () => {
     return (
       <Row>
